@@ -19,10 +19,10 @@ pip3 install -r requirements.txt
 ## Audio Service
 
 `audio_service.py` allows you identify intent addressed within a text/audio file, it returns the top n intents addressed in the input file.
-'''bash
+```bash
 python3 audio_service.py -t intent
-'''
+```
 By default, `audio_service.py` takes the num of intent as 4 and the data file present in `./data/sample.mp3`. You can specify your own values for each of these parameters if you would like:
-'''bash
+```bash
 python3 audio_service.py --top_n 3 --file_path ./data/news.txt
-'''
+```
