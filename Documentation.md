@@ -55,7 +55,7 @@ for tacking this, we can scrape the internet and can end up with related words i
 
 # Sentiment Analysis (on Audio Input)
 
-## Initial Deduction
+## Deduction
 
 So in this part we have an advantage over the intent analysis because understanding sentiment we can takes two factors in mind;
 ```bash
