@@ -8,14 +8,14 @@ from google.cloud.speech import enums
 from google.cloud.speech import types
 
 class SpeechToText():
-
+    ''' The class is for converting speech to text, using google cloud api'''
     os.environ.setdefault('GOOGLE_APPLICATION_CREDENTIALS', GOOGLE_CRED)
 
     def __init__(self):
         self.__client = speech.SpeechClient()
 
     def convert(self, file_path):
-
+        '''Takes input file path and returns the output text to it'''
         # Loads the audio into memory
         with io.open(file_path, 'rb') as audio_file:
             content = audio_file.read()

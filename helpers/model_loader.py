@@ -3,7 +3,7 @@ import tqdm
 from docs.config import GLOVE_PATH
 
 class GloveService():
-
+    ''' The class is for Loading GloVe Embedding into memory and accessing it further'''
     def __init__(self):
         try:
             self.file = open(GLOVE_PATH,"r")
@@ -13,7 +13,7 @@ class GloveService():
 
 
     def __load_glove_embedding(self):
-
+        '''Loads text word embedding into a dictionary'''
         glove_embedding = dict()
         print ('This will take a while...')
 
@@ -25,6 +25,7 @@ class GloveService():
         return glove_embedding
 
     def if_exist(self,token):
+        '''Checks if the provided vocab exists in the embedding dictionary'''
         if token in self.__glove_model.keys():
             return True
         else:
@@ -32,6 +33,7 @@ class GloveService():
 
 
     def get_vector(self,token):
+        '''Returns the vector of the word from the embedding dictionary'''
         try:
             vector = self.__glove_model[token]
             # vector_list = ast.literal_eval(vector)

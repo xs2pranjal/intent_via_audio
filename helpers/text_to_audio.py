@@ -3,14 +3,14 @@ from docs.config import DATA_DIR, GOOGLE_CRED
 import os
 
 class TextToAudio():
-
+    ''' The class is for Converting text to audio.'''
     os.environ.setdefault('GOOGLE_APPLICATION_CREDENTIALS', GOOGLE_CRED)
 
     def __init__(self):
         self.__client = texttospeech.TextToSpeechClient()
 
     def synthesize_text(self,text):
-        """Synthesizes speech from the input string of text."""
+        '''Synthesizes speech from the input string of text.'''
 
         input_text = texttospeech.types.SynthesisInput(text=text)
 

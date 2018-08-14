@@ -5,10 +5,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from helpers.noun_chunking import NounPhraseExtraction
 from docs.config import CATEGORIES
 from helpers.model_loader import GloveService
-# from docs import glove_model
 
 class IntentService():
-
+    ''' The class is for Extracting the top n intents from the input text.'''
     def __init__(self, top_n):
         self.top_n = top_n
         self.__noun_phrase_tokens=[]
@@ -16,6 +15,7 @@ class IntentService():
         self.__glove_model = GloveService()
 
     def __generate_text_vector(self):
+        '''Generates the text vector for the present noun phrases vocab'''
         token_vector_dict={}
 
         for token in self.__noun_phrase_tokens:
@@ -32,7 +32,7 @@ class IntentService():
         return vector_mean
 
     def __get_text_category_affinity(self, text):
-
+        '''Computes the affinity between the text and the category'''
         try:
             self.__noun_phrase_tokens = NounPhraseExtraction().get_noun_phrases(text)
         except Exception as e:
@@ -57,7 +57,7 @@ class IntentService():
         return affinity_dict
 
     def get_default_category(self,text):
-
+        '''Returns the top-n intents closest to the text'''
         category_affinity_dict=self.__get_text_category_affinity(text)
         affinity_dict=category_affinity_dict.get('affinity')
         five_largest=nlargest(self.top_n,affinity_dict,key=affinity_dict.get)

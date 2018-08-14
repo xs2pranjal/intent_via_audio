@@ -6,6 +6,7 @@ from src.intent_service import IntentService
 from docs.config import DATA_DIR
 
 class TTS():
+    ''' Text to Speech '''
     def __init__(self):
         self.__client = TextToAudio()
 
@@ -13,6 +14,7 @@ class TTS():
         return self.__client.synthesize_text(text)
 
 class Intent():
+    '''Intent'''
     def __init__(self, top_n):
         self.__client = IntentService(top_n)
 
@@ -20,6 +22,7 @@ class Intent():
         return self.__client.get_default_category(text)
 
 class STT():
+    '''Speech to Text'''
     def __init__(self):
         self.__client = SpeechToText()
 
@@ -28,6 +31,7 @@ class STT():
 
 
 if __name__ == "__main__":
+        # Arguments when running from CLI
         parser = argparse.ArgumentParser(description="Parameters")
 
         parser.add_argument('-t',
@@ -58,6 +62,8 @@ if __name__ == "__main__":
         top_n = args.top_n
 
         if type == "intent":
+            flag = False
+
             if file_path == "":
                 file_path = os.path.join(DATA_DIR, 'sample.mp3')
 
@@ -70,16 +76,23 @@ if __name__ == "__main__":
 
                 if os.path.exists(raw_path):
                     text = STT().fetch_text(raw_path)
+                    flag = True
                 else:
                     raise Exception("Audio input has not been converted to raw file, please install sox, and re-run")
 
             elif ext == ".txt":
                 with open(file_path,'r') as text_file:
                     text = text_file.read()
+                    flag = True
+            else:
+                print ("Not a compatible input file")
 
-            nearest_categ = Intent(top_n).fetch_nearest_categ(text)
-            print("Nearest Categories: \n")
-            print(nearest_categ)
+            if flag:
+                nearest_categ = Intent(top_n).fetch_nearest_categ(text)
+                print("Nearest Categories: \n")
+                print(nearest_categ)
+            else:
+                print ("Please check the file!")
 
         elif type == "tts":
 
