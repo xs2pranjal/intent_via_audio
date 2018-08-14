@@ -1,6 +1,5 @@
-import pickle
-import ast
 import numpy as np
+import tqdm
 from docs.config import GLOVE_PATH
 
 class GloveService():
@@ -9,14 +8,16 @@ class GloveService():
         try:
             self.file = open(GLOVE_PATH,"r")
         except Exception as e:
-            raise FileNotFoundError
+            raise FileNotFoundError("Cannot find Glove model at %s"%GLOVE_PATH)
         self.__glove_model = self.__load_glove_embedding()
 
 
     def __load_glove_embedding(self):
 
         glove_embedding = dict()
-        for line in self.file:
+        print ('This will take a while...')
+
+        for line in tqdm.tqdm(self.file, desc= "Loading GloVe"):
             splitLine = line.split()
             word = splitLine[0]
             embedding = np.array([float(val) for val in splitLine[1:]])
