@@ -9,7 +9,7 @@ googleapis-common-protos==1.5.3
 grpcio==1.14.1
 idna==2.7
 nltk==3.3
-numpy==1.15.0
+numpy==1.22.0
 protobuf==3.6.0
 pyasn1==0.4.4
 pyasn1-modules==0.2.2
